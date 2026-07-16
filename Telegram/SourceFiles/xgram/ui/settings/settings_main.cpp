@@ -70,9 +70,7 @@ void BuildVersionInfo(SectionBuilder &builder) {
 		return {
 			.widget = object_ptr<Ui::FlatLabel>(
 				ctx.container,
-				rpl::single(
-					XGram::Branding::kDesktopName + QStringLiteral(" v")
-					+ QString::fromLatin1(AppVersionStr)),
+				rpl::single(XGram::Branding::kDesktopName),
 				st::boxTitle),
 			.align = style::al_top,
 		};
