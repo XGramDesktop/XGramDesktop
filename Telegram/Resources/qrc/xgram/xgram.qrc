@@ -1,0 +1,36 @@
+<RCC>
+    <qresource prefix="/gui">
+        <file alias="art/xgram/alt/app.svg">../../art/xgram/alt/app.svg</file>
+        <file alias="art/xgram/alt/app_icon.ico">../../art/xgram/alt/app_icon.ico</file>
+        <file alias="art/xgram/bard/app.svg">../../art/xgram/bard/app.svg</file>
+        <file alias="art/xgram/bard/app_icon.ico">../../art/xgram/bard/app_icon.ico</file>
+        <file alias="art/xgram/chibi/app.png">../../art/xgram/chibi/app.png</file>
+        <file alias="art/xgram/chibi/app_icon.ico">../../art/xgram/chibi/app_icon.ico</file>
+        <file alias="art/xgram/chibi2/app.png">../../art/xgram/chibi2/app.png</file>
+        <file alias="art/xgram/chibi2/app_icon.ico">../../art/xgram/chibi2/app_icon.ico</file>
+        <file alias="art/xgram/default/app.svg">../../art/xgram/default/app.svg</file>
+        <file alias="art/xgram/default/app_icon.ico">../../art/xgram/default/app_icon.ico</file>
+        <file alias="art/xgram/discord/app.svg">../../art/xgram/discord/app.svg</file>
+        <file alias="art/xgram/discord/app_icon.ico">../../art/xgram/discord/app_icon.ico</file>
+        <file alias="art/xgram/extera/app.svg">../../art/xgram/extera/app.svg</file>
+        <file alias="art/xgram/extera/app_icon.ico">../../art/xgram/extera/app_icon.ico</file>
+        <file alias="art/xgram/extera2/app.svg">../../art/xgram/extera2/app.svg</file>
+        <file alias="art/xgram/extera2/app_icon.ico">../../art/xgram/extera2/app_icon.ico</file>
+        <file alias="art/xgram/nothing/app.svg">../../art/xgram/nothing/app.svg</file>
+        <file alias="art/xgram/nothing/app_icon.ico">../../art/xgram/nothing/app_icon.ico</file>
+        <file alias="art/xgram/spotify/app.svg">../../art/xgram/spotify/app.svg</file>
+        <file alias="art/xgram/spotify/app_icon.ico">../../art/xgram/spotify/app_icon.ico</file>
+        <file alias="art/xgram/win95/app.png">../../art/xgram/win95/app.png</file>
+        <file alias="art/xgram/win95/app_icon.ico">../../art/xgram/win95/app_icon.ico</file>
+        <file alias="art/xgram/yaplus/app.svg">../../art/xgram/yaplus/app.svg</file>
+        <file alias="art/xgram/yaplus/app_icon.ico">../../art/xgram/yaplus/app_icon.ico</file>
+        <file alias="icons/xgram/nocover.svg">../../icons/xgram/nocover.svg</file>
+        <file alias="icons/xgram/donates/boosty.svg">../../icons/xgram/donates/boosty.svg</file>
+        <file alias="icons/xgram/donates/ton.svg">../../icons/xgram/donates/ton.svg</file>
+        <file alias="icons/xgram/donates/bitcoin.svg">../../icons/xgram/donates/bitcoin.svg</file>
+        <file alias="icons/xgram/donates/ethereum.svg">../../icons/xgram/donates/ethereum.svg</file>
+        <file alias="icons/xgram/donates/solana.svg">../../icons/xgram/donates/solana.svg</file>
+        <file alias="icons/xgram/donates/tron.svg">../../icons/xgram/donates/tron.svg</file>
+        <file alias="icons/xgram/donates/support_logo.svg">../../icons/xgram/donates/support_logo.svg</file>
+    </qresource>
+</RCC>
