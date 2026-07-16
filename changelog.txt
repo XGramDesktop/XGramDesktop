@@ -1,4 +1,4 @@
-6.9.4 beta (02.07.26)
+1 (16.07.26)
 
 - Add rich message editor with media, tables and math formulas.
 - Show rich message drafts with full formatting in chat compose area.
