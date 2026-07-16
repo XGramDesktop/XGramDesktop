@@ -1,0 +1,29 @@
+diff --git a/src/program_serialize_data_version.py b/src/program_serialize_data_version.py
+index 4109d7252..f63f3faef 100755
+--- a/src/program_serialize_data_version.py
++++ b/src/program_serialize_data_version.py
+@@ -8,3 +8,4 @@
+ import hashlib
+ import argparse
++import os
+ import shlex
+@@ -13,2 +14,14 @@
++def _windows_short_path(path):
++    """Return a space-free Win32 path when the build root contains spaces."""
++    if os.name != 'nt':
++        return path
++    import ctypes
++    path = os.path.abspath(path)
++    buffer = ctypes.create_unicode_buffer(32768)
++    result = ctypes.windll.kernel32.GetShortPathNameW(
++        path, buffer, len(buffer))
++    return buffer.value if result else path
++
++
+ # Generate a hash from a list of files defined in angle_code_files
+ def GenerateHashOfAffectedFiles(angle_code_files):
+@@ -45,2 +58,3 @@
+-    angle_code_files = shlex.split(input_files_for_hash_generation)
++    angle_code_files = [_windows_short_path(path)
++                        for path in input_files_for_hash_generation.read().splitlines()]
+ digest, digest_size = GenerateHashOfAffectedFiles(angle_code_files)
