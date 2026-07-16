@@ -25,7 +25,7 @@ Never download XGram builds from untrusted mirrors. XGram will never ask you to 
 
 ## Documentation
 
-Guides for installing and using XGram are available at [XGram Documentation](https://youknowimhigh.github.io/XGramDocs/).
+Guides for installing and using XGram are available at [XGram Documentation](https://xgramdesktop.github.io/XGramDocs/).
 
 ## Building
 
