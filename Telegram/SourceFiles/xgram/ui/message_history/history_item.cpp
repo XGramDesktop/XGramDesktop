@@ -1,0 +1,161 @@
+// This is the source code of XGram for Desktop.
+//
+// We do not and cannot prevent the use of our code,
+// but be respectful and credit the original author.
+//
+// Copyright @Radolyn, 2026
+#include "xgram/ui/message_history/history_item.h"
+
+#include "history/history_item.h"
+#include "api/api_text_entities.h"
+#include "xgram/data/entities.h"
+#include "xgram/ui/message_history/history_inner.h"
+#include "xgram/utils/xgram_mapper.h"
+#include "base/unixtime.h"
+#include "core/application.h"
+#include "core/click_handler_types.h"
+#include "lang_auto.h"
+#include "data/data_channel.h"
+#include "data/data_file_origin.h"
+#include "data/data_forum_topic.h"
+#include "data/data_session.h"
+#include "data/data_user.h"
+#include "history/history.h"
+#include "history/view/history_view_element.h"
+#include "ui/basic_click_handlers.h"
+#include "ui/text/text_utilities.h"
+
+#include <QDir>
+#include <QFileInfo>
+#include <QUrl>
+
+namespace MessageHistory {
+
+namespace {
+
+[[nodiscard]] bool IsXGramSavedMediaPath(const QString &path) {
+	const auto file = QFileInfo(path);
+	if (!file.isFile()) {
+		return false;
+	}
+	const auto root = QDir(
+		cWorkingDir() + u"tdata/xgram-saved-media"_q).canonicalPath();
+	const auto target = file.canonicalFilePath();
+	return !root.isEmpty()
+		&& !target.isEmpty()
+		&& target.startsWith(root + QDir::separator());
+}
+
+} // namespace
+
+OwnedItem::OwnedItem(std::nullptr_t) {
+}
+
+OwnedItem::OwnedItem(
+	not_null<HistoryView::ElementDelegate*> delegate,
+	not_null<HistoryItem*> data)
+	: _data(data), _view(_data->createView(delegate)) {
+}
+
+OwnedItem::OwnedItem(OwnedItem &&other)
+	: _data(base::take(other._data)), _view(base::take(other._view)) {
+}
+
+OwnedItem &OwnedItem::operator=(OwnedItem &&other) {
+	_data = base::take(other._data);
+	_view = base::take(other._view);
+	return *this;
+}
+
+OwnedItem::~OwnedItem() {
+	clearView();
+	if (_data) {
+		_data->destroy();
+	}
+}
+
+void OwnedItem::refreshView(
+	not_null<HistoryView::ElementDelegate*> delegate) {
+	_view = _data->createView(delegate);
+}
+
+void OwnedItem::clearView() {
+	_view = nullptr;
+}
+
+void GenerateItems(
+	not_null<HistoryView::ElementDelegate*> delegate,
+	not_null<History*> history,
+	XGramMessageBase message,
+	Fn<void(OwnedItem item, TimeId sentDate, MsgId)> callback) {
+	PeerData *from = history->owner().userLoaded(message.fromId);
+	if (!from) {
+		from = history->owner().channelLoaded(message.fromId);
+	}
+	if (!from) {
+		from = reinterpret_cast<PeerData*>(history->owner().chatLoaded(message.fromId));
+	}
+	const auto date = message.entityCreateDate;
+	const auto addPart = [&](
+		not_null<HistoryItem*> item,
+		TimeId sentDate = 0,
+		MsgId realId = MsgId())
+	{
+		return callback(OwnedItem(delegate, item), sentDate, realId);
+	};
+
+	const auto makeSimpleTextMessage = [&](TextWithEntities &&text)
+	{
+		base::flags<MessageFlag> flags = MessageFlag::AdminLogEntry;
+		if (from) {
+			flags |= MessageFlag::HasFromId;
+		} else {
+			flags |= MessageFlag::HasPostAuthor;
+		}
+		if (!message.postAuthor.empty()) {
+			flags |= MessageFlag::HasPostAuthor;
+		}
+
+		return history->makeMessage({
+										.id = history->nextNonHistoryEntryId(),
+										.flags = flags,
+										.from = from ? from->id : 0,
+										.date = date,
+										.postAuthor = !message.postAuthor.empty()
+														  ? QString::fromStdString(message.postAuthor)
+														  : from
+																? QString()
+																: QString("unknown user: %1").arg(message.fromId),
+									},
+									std::move(text),
+									MTP_messageMediaEmpty());
+	};
+
+	const auto addSimpleTextMessage = [&](TextWithEntities &&text)
+	{
+		addPart(makeSimpleTextMessage(std::move(text)));
+	};
+
+	const auto text = QString::fromStdString(message.text);
+	auto textAndEntities = Ui::Text::WithEntities(text);
+	const auto entities = XGramMapper::deserializeTextWithEntities(message.textEntities);
+	textAndEntities.entities = Api::EntitiesFromMTP(&history->session(), entities.v);
+	const auto mediaPath = QString::fromStdString(message.mediaPath);
+	if (IsXGramSavedMediaPath(mediaPath)) {
+		if (!textAndEntities.text.isEmpty()) {
+			textAndEntities.text += u"\n"_q;
+		}
+		const auto offset = int(textAndEntities.text.size());
+		const auto label = tr::xgram_OpenSavedMedia(tr::now);
+		textAndEntities.text += label;
+		textAndEntities.entities.push_back({
+			EntityType::CustomUrl,
+			offset,
+			int(label.size()),
+			QUrl::fromLocalFile(mediaPath).toString(),
+		});
+	}
+	addSimpleTextMessage(std::move(textAndEntities));
+}
+
+} // namespace MessageHistory

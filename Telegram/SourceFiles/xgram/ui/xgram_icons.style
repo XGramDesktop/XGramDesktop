@@ -1,0 +1,82 @@
+/*
+ * This is the source code of XGram for Desktop.
+ *
+ * We do not and cannot prevent the use of our code,
+ * but be respectful and credit the original author.
+ *
+ * Copyright @Radolyn, 2025
+ */
+
+using "ui/colors.palette";
+using "ui/chat/chat.style";
+using "ui/widgets/widgets.style";
+using "dialogs/dialogs.style";
+
+xgramGhostIcon: icon {{ "xgram/ghost", menuIconColor }};
+xgramGhostModeGlobalIcon: icon {{ "xgram/ghost_mode_global", historyPeerUserpicFg }};
+xgramEditsHistoryIcon: icon {{ "xgram/edits_history", menuIconColor }};
+xgramLReadMenuIcon: icon {{ "xgram/lread", menuIconColor }};
+xgramSReadMenuIcon: icon {{ "xgram/sread", menuIconColor }};
+xgramStreamerModeMenuIcon: icon {{ "xgram/streamer", menuIconColor }};
+xgramToBeginningMenuIcon: icon {{ "xgram/to_beginning", menuIconColor }};
+xgramRepeatMenuIcon: icon {{ "xgram/repeat", menuIconColor }};
+xgramContactsMutualIcon: icon {{ "xgram/contacts_mutual", contactsStatusFg }};
+xgramContactsMutualIconOver: icon {{ "xgram/contacts_mutual", contactsStatusFgOver }};
+
+messageFieldAttachIcon: icon {{ "xgram/message_field/attach", menuIconColor }};
+messageFieldCommandsIcon: icon {{ "xgram/message_field/commands", menuIconColor }};
+messageFieldEmojiIcon: icon {{ "xgram/message_field/emoji", menuIconColor }};
+messageFieldVoiceIcon: icon {{ "xgram/message_field/voice", menuIconColor }};
+messageFieldTTLIcon: icon {{ "xgram/message_field/ttl", menuIconColor }};
+messageFieldCocoonAiIcon: icon{
+	{ size(24px, 24px), transparent },
+	{ "chat/ai_letters-20x20", menuIconColor, point(2px, 2px) },
+	{ "chat/ai_star1-20x20", menuIconColor, point(2px, 2px) },
+	{ "chat/ai_star2-20x20", menuIconColor, point(2px, 2px) },
+};
+
+inChannelBadgeIcon: icon {{ "xgram/channel", msgInDateFg }};
+inChannelBadgeSelectedIcon: icon {{ "xgram/channel", msgInDateFgSelected }};
+outChannelBadgeIcon: icon {{ "xgram/channel", msgOutDateFg }};
+outChannelBadgeSelectedIcon: icon {{ "xgram/channel", msgOutDateFgSelected }};
+
+infoExteraOfficialBadge: icon {{ "xgram/extera_official", profileVerifiedCheckBg }};
+infoExteraSupporterBadge: icon {{ "xgram/extera_badge", profileVerifiedCheckBg }};
+
+winEnterWithGuestIcon: icon {{ "xgram/ghost_tray", windowFg }};
+
+editedIcon: IconEmoji{
+    icon: icon{{ "xgram/edited", windowFg }};
+    padding: margins(0px, 0px, 0px, 0px);
+    useIconColor: false;
+}
+
+deletedIcon: IconEmoji{
+    icon: icon{{ "xgram/trash_bin", windowFg }};
+    padding: margins(0px, 0px, 0px, 0px);
+    useIconColor: false;
+}
+
+burntIcon: IconEmoji{
+    icon: icon{{ "xgram/burnt", windowFg }};
+    padding: margins(0px, 0px, 0px, 0px);
+    useIconColor: false;
+}
+
+dialogsExteraOfficialIcon: ThreeStateIcon {
+	icon: icon {{ "xgram/dialogs_extera_official", dialogsVerifiedIconBg }};
+	over: icon {{ "xgram/dialogs_extera_official", dialogsVerifiedIconBgOver }};
+	active: icon {{ "xgram/dialogs_extera_official", dialogsVerifiedIconBgActive }};
+}
+dialogsExteraSupporterIcon: ThreeStateIcon {
+	icon: icon {{ "xgram/dialogs_extera_supporter", dialogsVerifiedIconBg }};
+	over: icon {{ "xgram/dialogs_extera_supporter", dialogsVerifiedIconBgOver }};
+	active: icon {{ "xgram/dialogs_extera_supporter", dialogsVerifiedIconBgActive }};
+}
+
+xgramHistoryFileInPlugin: icon {{ "xgram/history_file_plugin", historyFileInIconFg }};
+xgramHistoryFileInPluginSelected: icon {{ "xgram/history_file_plugin", historyFileInIconFgSelected }};
+xgramHistoryFileOutPlugin: icon {{ "xgram/history_file_plugin", historyFileOutIconFg }};
+xgramHistoryFileOutPluginSelected: icon {{ "xgram/history_file_plugin", historyFileOutIconFgSelected }};
+
+menuIconClearAttention: icon {{ "menu/clear", menuIconAttentionColor }};
